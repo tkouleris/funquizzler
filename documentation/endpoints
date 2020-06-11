@@ -1,0 +1,7 @@
+Quiz
+------
+1. /funquizzler/quiz/create
+2. /funquizzler/quiz/delete
+3. /funquizzler/quiz/publish
+4. /funquizzler/quiz/unpublish
+5. /funquizzler/quiz/list
