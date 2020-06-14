@@ -8,21 +8,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tkouleris.funquizzler.dao.QuizRepository;
 import com.tkouleris.funquizzler.model.Quiz;
+import com.tkouleris.funquizzler.response.ApiResponse;
+import com.tkouleris.funquizzler.service.QuizService;
 
 @Controller
 @RequestMapping("/funquizzler")
 public class QuizController {
 	
 	@Autowired
-	private QuizRepository R_Quiz;
+	private QuizService QuizService;
+	@Autowired
+	private ApiResponse apiResponse;
 	
 	@PostMapping(path="/quiz/create", produces = "application/json")
 	public ResponseEntity<Object> createQuiz(@RequestBody Quiz newQuiz)
 	{
-		R_Quiz.save(newQuiz);
-		
-		return new ResponseEntity<>(null,HttpStatus.OK);
+		Quiz created_quiz = QuizService.create(newQuiz);
+	    apiResponse.setMessage("New quiz created!");
+	    apiResponse.setData(created_quiz);	    
+	   
+		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
 	}
 }
