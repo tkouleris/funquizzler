@@ -47,6 +47,9 @@ public class Quiz {
 		this.published_at = ts;
 	}
 	
-	
+	public void setPublished_at(Timestamp published_at)
+	{
+		this.published_at = published_at;
+	}
 
 }
