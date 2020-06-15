@@ -1,6 +1,11 @@
 package com.tkouleris.funquizzler.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,8 +41,10 @@ public class Quiz {
 		return published_at;
 	}
 
-	public void setPublished_at(Timestamp published_at) {
-		this.published_at = published_at;
+	public void setPublished_at(String published_at)
+	{
+		Timestamp ts = Timestamp.valueOf( published_at );
+		this.published_at = ts;
 	}
 	
 	
