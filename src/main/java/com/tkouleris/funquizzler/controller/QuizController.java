@@ -25,9 +25,9 @@ public class QuizController {
 	public ResponseEntity<Object> createQuiz(@RequestBody Quiz newQuiz)
 	{
 		Quiz created_quiz = QuizService.create(newQuiz);
-	    apiResponse.setMessage("New quiz created!");
-	    apiResponse.setData(created_quiz);	    
-	   
+		apiResponse.setMessage("New quiz created!");
+		apiResponse.setData(created_quiz);
+		
 		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
 	}
 }
