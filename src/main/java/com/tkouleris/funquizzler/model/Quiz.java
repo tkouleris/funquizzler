@@ -1,15 +1,14 @@
 package com.tkouleris.funquizzler.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Quiz {
@@ -20,6 +19,10 @@ public class Quiz {
 	private String title;
 	
 	private Timestamp published_at;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "quiz_id")
+	List<Question> questions;
 
 	public long getId() {
 		return id;
