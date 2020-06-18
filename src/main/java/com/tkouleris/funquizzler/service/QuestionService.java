@@ -10,6 +10,7 @@ import com.tkouleris.funquizzler.model.Quiz;
 
 @Service
 public class QuestionService {
+	
 	@Autowired
 	protected QuizRepository R_Quiz;
 	@Autowired
