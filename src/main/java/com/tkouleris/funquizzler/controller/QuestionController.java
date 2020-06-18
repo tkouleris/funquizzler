@@ -20,14 +20,14 @@ public class QuestionController {
 	private QuestionService questionService;
 	@Autowired
 	private ApiResponse apiResponse;
-	
+
 	@PostMapping(path="/question/create/{quiz_id}", produces = "application/json")
 	public ResponseEntity<Object>createQuestion(@RequestBody Question question, @PathVariable long quiz_id)
 	{
 		Question created_question = questionService.createQuestion(quiz_id, question);
 		apiResponse.setData(created_question );
 		apiResponse.setMessage("Question created");
-		
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.CREATED);	
+
+		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.CREATED);
 	}
 }
