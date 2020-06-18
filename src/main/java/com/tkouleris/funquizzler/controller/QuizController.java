@@ -12,6 +12,7 @@ import com.tkouleris.funquizzler.service.QuizService;
 @Controller
 @RequestMapping("/funquizzler")
 public class QuizController {
+
 	@Autowired
 	private QuizService QuizService;
 	@Autowired
