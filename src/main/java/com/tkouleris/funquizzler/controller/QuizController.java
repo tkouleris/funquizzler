@@ -9,6 +9,8 @@ import com.tkouleris.funquizzler.model.Quiz;
 import com.tkouleris.funquizzler.response.ApiResponse;
 import com.tkouleris.funquizzler.service.QuizService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/funquizzler")
 public class QuizController {
@@ -45,5 +47,15 @@ public class QuizController {
 		apiResponse.setMessage("Quiz deleted");
 		apiResponse.setData(null);
 		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping(path="/quiz/list")
+	public ResponseEntity<Object> list()
+	{
+		List<Quiz> quiz_list = QuizService.list();
+		apiResponse.setMessage("Quiz list");
+		apiResponse.setData(quiz_list);
+
+		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
 	}
 }

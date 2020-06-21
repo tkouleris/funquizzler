@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.tkouleris.funquizzler.dao.QuizRepository;
 import com.tkouleris.funquizzler.model.Quiz;
 
+import javax.persistence.PersistenceException;
+import java.util.List;
+
 @Service
 public class QuizService {
 	
@@ -14,7 +17,7 @@ public class QuizService {
 
 	public Quiz create(Quiz newQuiz)
 	{
-		if( titleIsValid(newQuiz.getTitle()) == false)
+		if( !titleIsValid(newQuiz.getTitle()) )
 		{
 			throw new IllegalArgumentException("Your quiz must have a title");
 		}						
@@ -36,7 +39,16 @@ public class QuizService {
 	public void delete(long quiz_id)
 	{
 		Quiz toDeleteQuiz = R_quiz.findById(quiz_id).orElse(null);
+		if( toDeleteQuiz == null)
+		{
+			throw new PersistenceException("Quiz not found");
+		}
 		R_quiz.delete(toDeleteQuiz);
+	}
+
+	public List<Quiz> list()
+	{
+		return R_quiz.findAll();
 	}
 
 	private Boolean titleIsValid(String quizTitle)
