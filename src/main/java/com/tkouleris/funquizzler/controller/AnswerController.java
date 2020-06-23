@@ -6,10 +6,9 @@ import com.tkouleris.funquizzler.service.AnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/funquizzler")
@@ -33,5 +32,15 @@ public class AnswerController {
         apiResponse.setMessage("Answer created");
 
         return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path="/question/{question_id}/answer", produces = "application/json")
+    public ResponseEntity<Object> listAnswerByQuestion(@PathVariable long question_id)
+    {
+        List<Answer> asnwer_list = answerService.listByQuestion(question_id);
+        apiResponse.setData(asnwer_list);
+        apiResponse.setMessage("Answer List");
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
     }
 }

@@ -1,9 +1,6 @@
 package com.tkouleris.funquizzler.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Answer {
@@ -11,12 +8,13 @@ public class Answer {
 	@GeneratedValue
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Question question;
 	
 	private String answer;
 	
 	private Boolean correct;
+
 
 	public long getId() {
 		return id;

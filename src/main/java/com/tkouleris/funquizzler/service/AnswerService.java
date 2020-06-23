@@ -7,6 +7,7 @@ import com.tkouleris.funquizzler.model.Question;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
+import java.util.List;
 
 @Service
 public class AnswerService {
@@ -30,5 +31,10 @@ public class AnswerService {
 
         answer.setQuestion(question);
         return R_answer.save(answer);
+    }
+
+    public List<Answer> listByQuestion(long question_id)
+    {
+        return R_answer.findByQuestionId(question_id);
     }
 }

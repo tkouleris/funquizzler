@@ -8,6 +8,8 @@ import com.tkouleris.funquizzler.dao.QuizRepository;
 import com.tkouleris.funquizzler.model.Question;
 import com.tkouleris.funquizzler.model.Quiz;
 
+import java.util.List;
+
 @Service
 public class QuestionService {
 	
@@ -21,6 +23,11 @@ public class QuestionService {
 		Quiz selectedQuiz = R_Quiz.findById(quiz_id).orElse(null);
 		question.setQuiz_id(selectedQuiz);
 		return R_Question.save(question);		
+	}
+
+	public List<Question> listQuestionByQuiz(long quiz_id)
+	{
+		return R_Question.findByQuizId(quiz_id);
 	}
 	
 }

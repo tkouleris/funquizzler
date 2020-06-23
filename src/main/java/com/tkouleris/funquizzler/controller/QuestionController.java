@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.tkouleris.funquizzler.model.Question;
 import com.tkouleris.funquizzler.response.ApiResponse;
 import com.tkouleris.funquizzler.service.QuestionService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/funquizzler")
@@ -29,5 +28,15 @@ public class QuestionController {
 		apiResponse.setMessage("Question created");
 
 		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.CREATED);
+	}
+
+	@GetMapping(path="question/list/{quiz_id}" ,produces = "application/json")
+	public ResponseEntity<Object> listQuestionsByQuiz(@PathVariable long quiz_id)
+	{
+		List<Question> question_list = questionService.listQuestionByQuiz(quiz_id);
+		apiResponse.setData(question_list);
+		apiResponse.setMessage("Quiz List");
+
+		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
 	}
 }
