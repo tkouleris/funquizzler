@@ -15,7 +15,6 @@ public class Answer {
 	
 	private Boolean correct;
 
-
 	public long getId() {
 		return id;
 	}
