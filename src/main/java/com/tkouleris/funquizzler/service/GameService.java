@@ -34,6 +34,10 @@ public class GameService {
         int index = 0;
         for(GameAnswerRequest answer: gameRequest.answers)
         {
+            if(answer.question_id == null)
+            {
+                continue;
+            }
             if(questionWasAlreadyChecked(questionsChecked, answer.question_id))
             {
                 continue;
@@ -65,7 +69,7 @@ public class GameService {
 
     private boolean questionWasAlreadyChecked(long[] questionsChecked, long questionId)
     {
-        for (Long question : questionsChecked) {
+        for (long question : questionsChecked) {
             if (question == questionId) {
                 return true;
             }
