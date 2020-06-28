@@ -37,7 +37,7 @@ public class GameService {
         {
             questionWasAnsered = false;
             for (Long aLong : checker) {
-                if ((index > 0) && (aLong.intValue() == answer.question_id)) {
+                if ((index > 0) && (aLong == answer.question_id)) {
                     questionWasAnsered = true;
                     break;
                 }
