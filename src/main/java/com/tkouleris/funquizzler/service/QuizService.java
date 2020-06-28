@@ -41,14 +41,17 @@ public class QuizService {
 	{
 		long quiz_id = updatedQuiz.getId();
 		Quiz currentQuiz = R_quiz.findById(quiz_id).orElse(null);
-		if(updatedQuiz.getTitle() == null)
-		{
-			updatedQuiz.setTitle("");
+
+		if (currentQuiz != null) {
+			currentQuiz.setTitle(updatedQuiz.getTitle());
 		}
-		currentQuiz.setTitle(updatedQuiz.getTitle());
-		currentQuiz.setPublished_at(updatedQuiz.getPublished_at());
-		R_quiz.save(currentQuiz);
-		
+		if (currentQuiz != null) {
+			currentQuiz.setPublished_at(updatedQuiz.getPublished_at());
+		}
+		if (currentQuiz != null) {
+			R_quiz.save(currentQuiz);
+		}
+
 		return currentQuiz;
 	}
 
