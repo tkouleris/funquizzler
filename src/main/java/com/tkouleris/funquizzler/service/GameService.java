@@ -34,10 +34,10 @@ public class GameService {
         int index = 0;
         for(GameAnswerRequest answer: gameRequest.answers)
         {
-            if(answer.question_id == null)
-            {
-                continue;
-            }
+//            if(answer.question_id == null)
+//            {
+//                continue;
+//            }
             if(questionWasAlreadyChecked(questionsChecked, answer.question_id))
             {
                 continue;
