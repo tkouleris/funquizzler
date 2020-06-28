@@ -2,10 +2,7 @@ package com.tkouleris.funquizzler.controller;
 
 import com.tkouleris.funquizzler.dao.AnswerRepository;
 import com.tkouleris.funquizzler.dao.QuestionRepository;
-import com.tkouleris.funquizzler.dto.QandAResponse;
 import com.tkouleris.funquizzler.dto.QuizResponse;
-import com.tkouleris.funquizzler.model.Answer;
-import com.tkouleris.funquizzler.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,6 @@ import com.tkouleris.funquizzler.model.Quiz;
 import com.tkouleris.funquizzler.response.ApiResponse;
 import com.tkouleris.funquizzler.service.QuizService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -73,7 +69,7 @@ public class QuizController {
 	@GetMapping(path="/quiz/{quiz_id}/full", produces="application/json")
 	public ResponseEntity<Object> getFullQuiz(@PathVariable long quiz_id)
 	{
-		QuizResponse quizResponse = QuizService.get_full_quiz(quiz_id);
+		QuizResponse quizResponse = QuizService.getFullQuiz(quiz_id);
 		apiResponse.setMessage("full quiz");
 		apiResponse.setData(quizResponse);
 

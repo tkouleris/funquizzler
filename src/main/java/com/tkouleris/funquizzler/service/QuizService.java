@@ -2,7 +2,9 @@ package com.tkouleris.funquizzler.service;
 
 import com.tkouleris.funquizzler.dao.AnswerRepository;
 import com.tkouleris.funquizzler.dao.QuestionRepository;
+import com.tkouleris.funquizzler.dto.AnswerResponse;
 import com.tkouleris.funquizzler.dto.QandAResponse;
+import com.tkouleris.funquizzler.dto.QuestionResponse;
 import com.tkouleris.funquizzler.dto.QuizResponse;
 import com.tkouleris.funquizzler.model.Answer;
 import com.tkouleris.funquizzler.model.Question;
@@ -65,7 +67,7 @@ public class QuizService {
 		return R_quiz.findAll();
 	}
 
-	public QuizResponse get_full_quiz(long quiz_id)
+	public QuizResponse getFullQuiz(long quiz_id)
 	{
 		List<Question> questions = R_Question.findByQuizId(quiz_id);
 
@@ -73,16 +75,20 @@ public class QuizService {
 		for(Question question: questions)
 		{
 			QandAResponse qandaresponse = new QandAResponse();
-			qandaresponse.question = question;
+
+			QuestionResponse questionResponse = new QuestionResponse();
+			questionResponse.id = question.getId();
+			questionResponse.question = question.getQuestion();
+			qandaresponse.question = questionResponse;
 			long question_id = question.getId();
 			List<Answer> answer_list = R_Answer.findByQuestionId(question_id);
 
 			for(Answer answer: answer_list)
 			{
-				Answer new_answer = new Answer();
-				new_answer.setId(answer.getId());
-				new_answer.setAnswer(answer.getAnswer());
-				new_answer.setCorrect(answer.getCorrect());
+				AnswerResponse new_answer = new AnswerResponse();
+				new_answer.id = answer.getId();
+				new_answer.answer = answer.getAnswer();
+				new_answer.correct = answer.getCorrect();
 				qandaresponse.answerList.add(new_answer);
 			}
 			quizResponse.qandaResponse.add(qandaresponse);
