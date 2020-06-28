@@ -30,46 +30,46 @@ public class GameService {
     {
         int questions_answered = 0;
         int correct_answered = 0;
-        Long[] checker = new Long[gameRequest.answers.size()];
+        long[] questionsChecked = new long[gameRequest.answers.size()];
         int index = 0;
-        boolean questionWasAnsered;
         for(GameAnswerRequest answer: gameRequest.answers)
         {
-            questionWasAnsered = false;
-            for (Long aLong : checker) {
-                if ((index > 0) && (aLong == answer.question_id)) {
-                    questionWasAnsered = true;
-                    break;
-                }
-            }
-            if(questionWasAnsered)
+            if(questionWasAlreadyChecked(questionsChecked, answer.question_id))
             {
                 continue;
             }
             Question question_answered = questionRepository.findByQuiz_idAndId(gameRequest.quiz_id, answer.question_id);
-
             if(question_answered == null)
             {
                 continue;
             }
 
             Answer selected_correct_answer = answerRepository.findById(answer.correct_answer_id).orElse(null);
-            checker[index] = answer.question_id;
-            index++;
             if(selected_correct_answer == null)
             {
                 continue;
             }
+            questionsChecked[index] = answer.question_id;
+            index++;
             questions_answered++;
             if(selected_correct_answer.getCorrect())
             {
                 correct_answered++;
-                System.out.println("Your Answer is correct");
             }
         }
         gameResponse.questions_answered = questions_answered;
         gameResponse.correct_questions = correct_answered;
 
         return gameResponse;
+    }
+
+    private boolean questionWasAlreadyChecked(long[] questionsChecked, long questionId)
+    {
+        for (Long question : questionsChecked) {
+            if (question == questionId) {
+                return true;
+            }
+        }
+        return false;
     }
 }
