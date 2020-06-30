@@ -1,6 +1,5 @@
 package com.tkouleris.funquizzler.controller;
 
-import com.tkouleris.funquizzler.dto.Request.GameAnswerRequest;
 import com.tkouleris.funquizzler.dto.Request.GameRequest;
 import com.tkouleris.funquizzler.dto.Request.GameResponse;
 import com.tkouleris.funquizzler.response.ApiResponse;
