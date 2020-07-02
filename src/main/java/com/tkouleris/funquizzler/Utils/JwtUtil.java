@@ -12,8 +12,8 @@ import java.util.Map;
 
 @Service
 public class JwtUtil {
-    private String SECRET_KEY="jvBtDp1IU1eBv9d6Dy8ryCKY6op314vn1INVd0fCOt64L8Yf8VYAZv52nupFm";
-    private int EXPIRATION_TIME = 3600000; // 1 hour
+    private final String SECRET_KEY="jvBtDp1IU1eBv9d6Dy8ryCKY6op314vn1INVd0fCOt64L8Yf8VYAZv52nupFm";
+    private final int EXPIRATION_TIME = 3600000; // 1 hour
 
     public String extractUsername(String token)
     {

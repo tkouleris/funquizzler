@@ -17,7 +17,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Future feature
         return null;
     }
 
@@ -33,25 +32,21 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Future feature
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Future feature
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Future feature
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // TODO Future feature
         return true;
     }
 
