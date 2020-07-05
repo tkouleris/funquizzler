@@ -3,7 +3,9 @@ package com.tkouleris.funquizzler.service;
 import com.tkouleris.funquizzler.dao.UserRepository;
 import com.tkouleris.funquizzler.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
     protected UserRepository userRepository;
