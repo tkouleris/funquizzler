@@ -19,13 +19,16 @@ import java.util.List;
 
 @Service
 public class QuizService {
-	
-	@Autowired
-	private QuizRepository R_quiz;
-	@Autowired
-	private QuestionRepository R_Question;
-	@Autowired
-	AnswerRepository R_Answer;
+
+	private final QuizRepository quizRepository;
+	private final QuestionRepository questionRepository;
+	private final AnswerRepository answerRepository;
+
+	public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository, AnswerRepository answerRepository) {
+		this.quizRepository = quizRepository;
+		this.questionRepository = questionRepository;
+		this.answerRepository = answerRepository;
+	}
 
 	public Quiz create(Quiz newQuiz)
 	{
@@ -33,14 +36,14 @@ public class QuizService {
 		{
 			throw new IllegalArgumentException("Your quiz must have a title");
 		}						
-		R_quiz.save(newQuiz);		
+		quizRepository.save(newQuiz);
 		return newQuiz;
 	}
 
 	public Quiz update(Quiz updatedQuiz)
 	{
 		long quiz_id = updatedQuiz.getId();
-		Quiz currentQuiz = R_quiz.findById(quiz_id).orElse(null);
+		Quiz currentQuiz = quizRepository.findById(quiz_id).orElse(null);
 
 		if (currentQuiz != null) {
 			currentQuiz.setTitle(updatedQuiz.getTitle());
@@ -49,7 +52,7 @@ public class QuizService {
 			currentQuiz.setPublished_at(updatedQuiz.getPublished_at());
 		}
 		if (currentQuiz != null) {
-			R_quiz.save(currentQuiz);
+			quizRepository.save(currentQuiz);
 		}
 
 		return currentQuiz;
@@ -57,22 +60,22 @@ public class QuizService {
 
 	public void delete(long quiz_id)
 	{
-		Quiz toDeleteQuiz = R_quiz.findById(quiz_id).orElse(null);
+		Quiz toDeleteQuiz = quizRepository.findById(quiz_id).orElse(null);
 		if( toDeleteQuiz == null)
 		{
 			throw new PersistenceException("Quiz not found");
 		}
-		R_quiz.delete(toDeleteQuiz);
+		quizRepository.delete(toDeleteQuiz);
 	}
 
 	public List<Quiz> list()
 	{
-		return R_quiz.findAll();
+		return quizRepository.findAll();
 	}
 
 	public QuizResponse getFullQuiz(long quiz_id)
 	{
-		List<Question> questions = R_Question.findByQuizId(quiz_id);
+		List<Question> questions = questionRepository.findByQuizId(quiz_id);
 
 		QuizResponse quizResponse = new QuizResponse();
 		for(Question question: questions)
@@ -84,7 +87,7 @@ public class QuizService {
 			questionResponse.question = question.getQuestion();
 			qandaresponse.question = questionResponse;
 			long question_id = question.getId();
-			List<Answer> answer_list = R_Answer.findByQuestionId(question_id);
+			List<Answer> answer_list = answerRepository.findByQuestionId(question_id);
 
 			for(Answer answer: answer_list)
 			{

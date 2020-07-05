@@ -12,22 +12,25 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-	
-	@Autowired
-	protected QuizRepository R_Quiz;
-	@Autowired
-	protected QuestionRepository R_Question;
-	
+
+	protected QuizRepository quizRepository;
+	protected QuestionRepository questionRepository;
+
+	public QuestionService(QuizRepository quizRepository, QuestionRepository questionRepository) {
+		this.quizRepository = quizRepository;
+		this.questionRepository = questionRepository;
+	}
+
 	public Question createQuestion(long quiz_id, Question question)
 	{
-		Quiz selectedQuiz = R_Quiz.findById(quiz_id).orElse(null);
+		Quiz selectedQuiz = quizRepository.findById(quiz_id).orElse(null);
 		question.setQuiz_id(selectedQuiz);
-		return R_Question.save(question);		
+		return questionRepository.save(question);
 	}
 
 	public List<Question> listQuestionByQuiz(long quiz_id)
 	{
-		return R_Question.findByQuizId(quiz_id);
+		return questionRepository.findByQuizId(quiz_id);
 	}
 	
 }
