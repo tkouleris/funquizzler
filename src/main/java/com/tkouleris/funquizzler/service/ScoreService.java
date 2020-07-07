@@ -17,7 +17,11 @@ public class ScoreService {
 
     public void setQuizScoreForUser(Quiz quiz, User user, int score)
     {
-        Score game_score = new Score();
+        Score game_score = scoreRepository.findByQuizAndUser(quiz,user).orElse(null);
+        if(game_score == null)
+        {
+            game_score = new Score();
+        }
         game_score.setQuiz(quiz);
         game_score.setUser(user);
         game_score.setScore(score);
