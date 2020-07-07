@@ -2,31 +2,40 @@ package com.tkouleris.funquizzler.service;
 
 import com.tkouleris.funquizzler.dao.AnswerRepository;
 import com.tkouleris.funquizzler.dao.QuestionRepository;
+import com.tkouleris.funquizzler.dao.QuizRepository;
 import com.tkouleris.funquizzler.dto.Request.GameAnswerRequest;
 import com.tkouleris.funquizzler.dto.Request.GameRequest;
 import com.tkouleris.funquizzler.dto.Request.GameResponse;
 import com.tkouleris.funquizzler.model.Answer;
 import com.tkouleris.funquizzler.model.Question;
+import com.tkouleris.funquizzler.model.Quiz;
+import com.tkouleris.funquizzler.model.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
 
+    protected QuizRepository quizRepository;
     protected QuestionRepository questionRepository;
     protected AnswerRepository answerRepository;
     protected GameResponse gameResponse;
+    protected ScoreService scoreService;
 
     public GameService(
+            QuizRepository quizRepository,
             QuestionRepository questionRepository,
             AnswerRepository answerRepository,
-            GameResponse gameResponse)
+            GameResponse gameResponse,
+            ScoreService scoreService)
     {
+        this.quizRepository = quizRepository;
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.gameResponse = gameResponse;
+        this.scoreService = scoreService;
     }
 
-    public GameResponse checkAnswers(GameRequest gameRequest)
+    public GameResponse checkAnswers(GameRequest gameRequest, User user)
     {
         int questions_answered = 0;
         int correct_answered = 0;
@@ -63,6 +72,9 @@ public class GameService {
         }
         gameResponse.questions_answered = questions_answered;
         gameResponse.correct_questions = correct_answered;
+
+        Quiz quiz = quizRepository.findById(gameRequest.quiz_id).orElse(null);
+        scoreService.setQuizScoreForUser(quiz, user, correct_answered);
 
         return gameResponse;
     }
