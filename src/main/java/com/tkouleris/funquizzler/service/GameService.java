@@ -6,11 +6,10 @@ import com.tkouleris.funquizzler.dao.QuizRepository;
 import com.tkouleris.funquizzler.dto.Request.GameAnswerRequest;
 import com.tkouleris.funquizzler.dto.Request.GameRequest;
 import com.tkouleris.funquizzler.dto.Request.GameResponse;
-import com.tkouleris.funquizzler.model.Answer;
-import com.tkouleris.funquizzler.model.Question;
-import com.tkouleris.funquizzler.model.Quiz;
-import com.tkouleris.funquizzler.model.User;
+import com.tkouleris.funquizzler.model.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GameService {
