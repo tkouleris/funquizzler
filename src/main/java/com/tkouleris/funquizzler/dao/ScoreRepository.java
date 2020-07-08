@@ -1,6 +1,5 @@
 package com.tkouleris.funquizzler.dao;
 
-import com.tkouleris.funquizzler.dto.LeaderboardUser;
 import com.tkouleris.funquizzler.model.Quiz;
 import com.tkouleris.funquizzler.model.Score;
 import com.tkouleris.funquizzler.model.User;
