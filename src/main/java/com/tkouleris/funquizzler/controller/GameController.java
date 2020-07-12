@@ -22,18 +22,16 @@ public class GameController {
     protected UserRepository userRepository;
     protected ApiResponse apiResponse;
 
-    public GameController(GameService gameService, ApiResponse apiResponse, UserRepository userRepository)
-    {
+    public GameController(GameService gameService, ApiResponse apiResponse, UserRepository userRepository) {
         this.userRepository = userRepository;
         this.gameService = gameService;
         this.apiResponse = apiResponse;
     }
 
-    @PostMapping(path="/game/result", produces = "application/json")
-    public ResponseEntity<Object> getGameResult(Authentication authentication, @RequestBody GameRequest gameRequest)
-    {
+    @PostMapping(path = "/game/result", produces = "application/json")
+    public ResponseEntity<Object> getGameResult(Authentication authentication, @RequestBody GameRequest gameRequest) {
         User loggedInUser = userRepository.findByUsername(authentication.getName());
-        GameResponse gameResponse = gameService.checkAnswers(gameRequest,loggedInUser);
+        GameResponse gameResponse = gameService.checkAnswers(gameRequest, loggedInUser);
         apiResponse.setData(gameResponse);
         apiResponse.setMessage("results");
 

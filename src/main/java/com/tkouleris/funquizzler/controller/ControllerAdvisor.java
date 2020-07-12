@@ -15,7 +15,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleGenericException(Exception e) {
-        String message = e.getMessage() != null ? e.getMessage():"Bad Request";
+        String message = e.getMessage() != null ? e.getMessage() : "Bad Request";
         apiResponse.setMessage(message);
         apiResponse.setData(null);
 

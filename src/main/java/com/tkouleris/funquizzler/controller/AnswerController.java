@@ -17,16 +17,14 @@ public class AnswerController {
     protected AnswerService answerService;
     protected ApiResponse apiResponse;
 
-    public AnswerController(AnswerService answerService, ApiResponse apiResponse)
-    {
+    public AnswerController(AnswerService answerService, ApiResponse apiResponse) {
         this.answerService = answerService;
         this.apiResponse = apiResponse;
     }
 
 
-    @PostMapping(path = "/question/{question_id}/answer/create", produces = "application/json" )
-    public ResponseEntity<Object> createAnswer(@RequestBody Answer answer, @PathVariable long question_id)
-    {
+    @PostMapping(path = "/question/{question_id}/answer/create", produces = "application/json")
+    public ResponseEntity<Object> createAnswer(@RequestBody Answer answer, @PathVariable long question_id) {
         Answer createdAnswer = answerService.createAnswer(question_id, answer);
         apiResponse.setData(createdAnswer);
         apiResponse.setMessage("Answer created");
@@ -34,13 +32,12 @@ public class AnswerController {
         return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.CREATED);
     }
 
-    @GetMapping(path="/question/{question_id}/answer", produces = "application/json")
-    public ResponseEntity<Object> listAnswerByQuestion(@PathVariable long question_id)
-    {
+    @GetMapping(path = "/question/{question_id}/answer", produces = "application/json")
+    public ResponseEntity<Object> listAnswerByQuestion(@PathVariable long question_id) {
         List<Answer> asnwer_list = answerService.listByQuestion(question_id);
         apiResponse.setData(asnwer_list);
         apiResponse.setMessage("Answer List");
 
-        return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
     }
 }

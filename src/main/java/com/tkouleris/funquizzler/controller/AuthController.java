@@ -34,8 +34,7 @@ public class AuthController {
             AuthenticationManager authenticationManager,
             CustomUserDetailsService userDetailsService,
             JwtUtil jwtTokenUtil,
-            LoginResponse loginResponse)
-    {
+            LoginResponse loginResponse) {
         this.userService = userService;
         this.apiResponse = apiResponse;
         this.authenticationManager = authenticationManager;
@@ -45,8 +44,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Object> register(@RequestBody User user) throws Exception
-    {
+    public ResponseEntity<Object> register(@RequestBody User user) throws Exception {
         User newUser = userService.createNewUser(user);
         apiResponse.setMessage("User created!");
         apiResponse.setData(newUser);
@@ -55,8 +53,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/authenticate", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Object> authenticateUser(@RequestBody User user)
-    {
+    public ResponseEntity<Object> authenticateUser(@RequestBody User user) {
         Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         authenticationManager.authenticate(auth);
 
@@ -69,6 +66,6 @@ public class AuthController {
         apiResponse.setMessage("Auth Token!");
         apiResponse.setData(loginResponse);
 
-        return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
     }
 }

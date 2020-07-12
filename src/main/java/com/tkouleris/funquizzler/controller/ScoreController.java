@@ -14,14 +14,14 @@ public class ScoreController {
 
     private final ScoreService scoreService;
     private final ApiResponse apiResponse;
+
     public ScoreController(ScoreService scoreService, ApiResponse apiResponse) {
         this.scoreService = scoreService;
         this.apiResponse = apiResponse;
     }
 
     @GetMapping(path = "/leaderboards", produces = "application/json")
-    public ResponseEntity<Object> getLeaderboards()
-    {
+    public ResponseEntity<Object> getLeaderboards() {
         apiResponse.setData(this.scoreService.getLeaderboards());
         apiResponse.setMessage("Leaderboards");
 

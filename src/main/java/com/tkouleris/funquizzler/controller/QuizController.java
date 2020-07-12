@@ -15,61 +15,55 @@ import java.util.List;
 @RequestMapping("/funquizzler")
 public class QuizController {
 
-	private final QuizService quizService;
-	private final ApiResponse apiResponse;
+    private final QuizService quizService;
+    private final ApiResponse apiResponse;
 
-	public QuizController( QuizService quizService, ApiResponse apiResponse )
-	{
-		this.quizService = quizService;
-		this.apiResponse = apiResponse;
-	}
+    public QuizController(QuizService quizService, ApiResponse apiResponse) {
+        this.quizService = quizService;
+        this.apiResponse = apiResponse;
+    }
 
-	@PostMapping(path="/quiz/create", produces = "application/json")
-	public ResponseEntity<Object> createQuiz(@RequestBody Quiz newQuiz)
-	{
-		Quiz created_quiz = quizService.create(newQuiz);
-		apiResponse.setMessage("New quiz created!");
-		apiResponse.setData(created_quiz);
-		
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.CREATED);
-	}
-	
-	@PutMapping(path="/quiz/update", produces = "application/json")
-	public ResponseEntity<Object> updateQuiz(@RequestBody Quiz updatedQuiz)
-	{
-		Quiz updated_quiz = quizService.update(updatedQuiz);
-		apiResponse.setMessage("Quiz updated!");
-		apiResponse.setData(updated_quiz);
-		
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
-	}
+    @PostMapping(path = "/quiz/create", produces = "application/json")
+    public ResponseEntity<Object> createQuiz(@RequestBody Quiz newQuiz) {
+        Quiz created_quiz = quizService.create(newQuiz);
+        apiResponse.setMessage("New quiz created!");
+        apiResponse.setData(created_quiz);
 
-	@DeleteMapping(path="/quiz/delete/{quiz_id}")
-	public ResponseEntity<Object> deleteQuiz(@PathVariable long quiz_id)
-	{
-		quizService.delete(quiz_id);
-		apiResponse.setMessage("Quiz deleted");
-		apiResponse.setData(null);
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.NO_CONTENT);
-	}
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.CREATED);
+    }
 
-	@GetMapping(path="/quiz/list")
-	public ResponseEntity<Object> list()
-	{
-		List<Quiz> quiz_list = quizService.list();
-		apiResponse.setMessage("Quiz list");
-		apiResponse.setData(quiz_list);
+    @PutMapping(path = "/quiz/update", produces = "application/json")
+    public ResponseEntity<Object> updateQuiz(@RequestBody Quiz updatedQuiz) {
+        Quiz updated_quiz = quizService.update(updatedQuiz);
+        apiResponse.setMessage("Quiz updated!");
+        apiResponse.setData(updated_quiz);
 
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
-	}
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
 
-	@GetMapping(path="/quiz/{quiz_id}/full", produces="application/json")
-	public ResponseEntity<Object> getFullQuiz(@PathVariable long quiz_id)
-	{
-		QuizResponse quizResponse = quizService.getFullQuiz(quiz_id);
-		apiResponse.setMessage("full quiz");
-		apiResponse.setData(quizResponse);
+    @DeleteMapping(path = "/quiz/delete/{quiz_id}")
+    public ResponseEntity<Object> deleteQuiz(@PathVariable long quiz_id) {
+        quizService.delete(quiz_id);
+        apiResponse.setMessage("Quiz deleted");
+        apiResponse.setData(null);
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.NO_CONTENT);
+    }
 
-		return new ResponseEntity<>(apiResponse.getBodyResponse(),HttpStatus.OK);
-	}
+    @GetMapping(path = "/quiz/list")
+    public ResponseEntity<Object> list() {
+        List<Quiz> quiz_list = quizService.list();
+        apiResponse.setMessage("Quiz list");
+        apiResponse.setData(quiz_list);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/quiz/{quiz_id}/full", produces = "application/json")
+    public ResponseEntity<Object> getFullQuiz(@PathVariable long quiz_id) {
+        QuizResponse quizResponse = quizService.getFullQuiz(quiz_id);
+        apiResponse.setMessage("full quiz");
+        apiResponse.setData(quizResponse);
+
+        return new ResponseEntity<>(apiResponse.getBodyResponse(), HttpStatus.OK);
+    }
 }
