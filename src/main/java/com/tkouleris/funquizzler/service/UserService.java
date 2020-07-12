@@ -1,6 +1,10 @@
 package com.tkouleris.funquizzler.service;
 
 import com.tkouleris.funquizzler.dao.UserRepository;
+import com.tkouleris.funquizzler.exceptions.InvalidEmailException;
+import com.tkouleris.funquizzler.exceptions.InvalidPasswordException;
+import com.tkouleris.funquizzler.exceptions.InvalidUsernameException;
+import com.tkouleris.funquizzler.exceptions.UserExistsException;
 import com.tkouleris.funquizzler.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +23,7 @@ public class UserService {
 
     public User createNewUser(User user) throws Exception
     {
-        if(user_exists(user)) throw new Exception("User already exists!");
+        if(user_exists(user)) throw new UserExistsException("User already exists!");
 
         String UserEmail = user.getEmail().trim();
         String UserUsername = user.getUsername().trim();
@@ -46,10 +50,9 @@ public class UserService {
          */
         boolean PasswordIsNotValid = !UserPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}");
 
-        if(UsernameIsNotValid) throw new Exception("Username not set or not valid!");
-        if(PasswordIsNotValid ) throw new Exception("Password not set or not valid");
-        if(EmailIsNotValid) throw new Exception("Email not set or not valid!");
-
+        if(UsernameIsNotValid) throw new InvalidUsernameException("Username not set or not valid!");
+        if(PasswordIsNotValid ) throw new InvalidPasswordException("Password not set or not valid");
+        if(EmailIsNotValid) throw new InvalidEmailException("Email not set or not valid!");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
