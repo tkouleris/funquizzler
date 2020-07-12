@@ -15,17 +15,14 @@ public class AnswerService {
     protected QuestionRepository R_question;
     protected AnswerRepository R_answer;
 
-    public AnswerService(QuestionRepository questionRepository, AnswerRepository answerRepository)
-    {
+    public AnswerService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.R_question = questionRepository;
         this.R_answer = answerRepository;
     }
 
-    public Answer createAnswer(long question_id, Answer answer)
-    {
+    public Answer createAnswer(long question_id, Answer answer) {
         Question question = R_question.findById(question_id).orElse(null);
-        if(question == null)
-        {
+        if (question == null) {
             throw new PersistenceException("Question not found");
         }
 
@@ -33,8 +30,7 @@ public class AnswerService {
         return R_answer.save(answer);
     }
 
-    public List<Answer> listByQuestion(long question_id)
-    {
+    public List<Answer> listByQuestion(long question_id) {
         return R_answer.findByQuestionId(question_id);
     }
 }

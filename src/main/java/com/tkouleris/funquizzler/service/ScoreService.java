@@ -19,11 +19,9 @@ public class ScoreService {
         this.scoreRepository = scoreRepository;
     }
 
-    public void setQuizScoreForUser(Quiz quiz, User user, int score)
-    {
-        Score game_score = scoreRepository.findByQuizAndUser(quiz,user).orElse(null);
-        if(game_score == null)
-        {
+    public void setQuizScoreForUser(Quiz quiz, User user, int score) {
+        Score game_score = scoreRepository.findByQuizAndUser(quiz, user).orElse(null);
+        if (game_score == null) {
             game_score = new Score();
         }
         game_score.setQuiz(quiz);
@@ -32,12 +30,10 @@ public class ScoreService {
         scoreRepository.save(game_score);
     }
 
-    public List<LeaderboardUser> getLeaderboards()
-    {
+    public List<LeaderboardUser> getLeaderboards() {
         List<String> leaderboards = scoreRepository.getLeaderboards();
         List<LeaderboardUser> scoreTable = new ArrayList<>();
-        for(String record:leaderboards)
-        {
+        for (String record : leaderboards) {
             String[] fields = record.split(",");
             LeaderboardUser leaderboardUser = new LeaderboardUser();
             leaderboardUser.setUsername(fields[0]);
