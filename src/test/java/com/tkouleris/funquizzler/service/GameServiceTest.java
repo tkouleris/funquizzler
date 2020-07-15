@@ -33,7 +33,7 @@ class GameServiceTest {
     }
 
     @Test
-    void question_id_is_null()
+    void QuestionIdIsNullShouldReturnZeroScore()
     {
         // given
         GameRequest gameRequest = new GameRequest();
