@@ -1,4 +1,4 @@
-package com.tkouleris.funquizzler;
+package com.tkouleris.funquizzler.service;
 
 import com.tkouleris.funquizzler.dao.UserRepository;
 import com.tkouleris.funquizzler.exceptions.InvalidEmailException;
@@ -6,12 +6,10 @@ import com.tkouleris.funquizzler.exceptions.InvalidPasswordException;
 import com.tkouleris.funquizzler.exceptions.InvalidUsernameException;
 import com.tkouleris.funquizzler.exceptions.UserExistsException;
 import com.tkouleris.funquizzler.model.User;
-import com.tkouleris.funquizzler.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceTest {
